@@ -1,9 +1,9 @@
 #include <fstream>
 #include <iostream>
 
-#include "./Scene.h"
-#include "./Constants.h"
-#include "./Node.h"
+#include "Scene.h"
+#include "Constants.h"
+#include "Node.h"
 
 Scene::Scene(char version, const std::string& sceneFile)
 {
@@ -93,14 +93,17 @@ void Scene::ParseActorJson(char version)
 
 	switch (version)
 	{
-	case MM_JP:
-		actorFile = "mm_j1_actors.json";
+	case MM_JP0:
+		actorFile = "actors_mm_j0.json";
+		break;
+	case MM_JP1:
+		actorFile = "actors_mm_j1.json";
 		break;
 	case MM_US:
-		actorFile = "mm_u_actors.json";
+		actorFile = "actors_mm_u0.json";
 		break;
-	case MM_JP_GC:
-		actorFile = "mm_j_gc_actors.json";
+	case MM_GC_JP:
+		actorFile = "actors_mm_gcj.json";
 		break;
 	default:
 		std::cerr << "Invalid version" << std::endl;
@@ -180,7 +183,7 @@ std::map<int, Node*> Scene::GetTransitionActors() const
 	return transitionActors;
 }
 
-int Scene::NumberOfTransitionActors() const
+size_t Scene::NumberOfTransitionActors() const
 {
 	return transitionActors.size();
 }

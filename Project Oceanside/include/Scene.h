@@ -14,7 +14,7 @@ public:
 	void DumpSceneInfo() const;
 	void ResetClearedActors();
 	std::map<int, Node*> GetTransitionActors() const;
-	int NumberOfTransitionActors() const;
+	size_t NumberOfTransitionActors() const;
 
 private:
 	void LoadScene();

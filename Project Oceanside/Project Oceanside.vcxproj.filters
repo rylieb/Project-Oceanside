@@ -15,53 +15,63 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project Oceanside.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Heap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <None Include="conf\actors\actors_mm_gcj.json" />
+    <None Include="conf\actors\actors_mm_j0.json" />
+    <None Include="conf\actors\actors_mm_j1.json" />
+    <None Include="conf\actors\actors_mm_u0.json" />
+    <None Include="conf\actors\actors_oot.json" />
+    <None Include="conf\settings.json" />
+    <None Include="conf\scene\scene_beneath_the_graveyard.json" />
+    <None Include="conf\scene\scene_deku_palace_jp.json" />
+    <None Include="conf\scene\scene_deku_palace_us.json" />
+    <None Include="conf\scene\scene_graveyard_night1.json" />
+    <None Include="conf\scene\scene_graveyard_night1_old.json" />
+    <None Include="conf\scene\scene_observatory_jp.json" />
+    <None Include="conf\scene\scene_observatory_us.json" />
+    <None Include="conf\scene\scene_observatory_us_old0.json" />
+    <None Include="conf\scene\scene_observatory_us_old1.json" />
+    <None Include="conf\scene\scene_swamp_us.json" />
+    <None Include="conf\scene\scene_woods_of_mystery_day1.json" />
+    <None Include="conf\scene\scene_woods_of_mystery_day1_partial.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Heap.h">
+    <ClInclude Include="include\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
+    <ClInclude Include="include\Heap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Room.h">
+    <ClInclude Include="include\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
+    <ClInclude Include="include\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.h">
+    <ClInclude Include="include\Room.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="mm_j_actors.json" />
-    <CopyFileToFolders Include="mm_u_actors.json" />
-    <CopyFileToFolders Include="oot_actors.json" />
-    <CopyFileToFolders Include="scene.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="scene_2.json" />
-    <None Include="scene_3.json" />
-    <None Include="scene_4.json" />
-    <None Include="scene_5.json" />
-    <None Include="scene_6.json" />
-    <None Include="scene_69.json" />
-    <None Include="swamp.json" />
-    <None Include="mm_j1_actors.json" />
+    <ClCompile Include="src\Heap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Project Oceanside.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Room.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

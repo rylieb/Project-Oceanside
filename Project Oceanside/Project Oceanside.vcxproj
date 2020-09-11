@@ -18,6 +18,42 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="conf\actors\actors_mm_gcj.json" />
+    <None Include="conf\actors\actors_mm_j0.json" />
+    <None Include="conf\actors\actors_mm_j1.json" />
+    <None Include="conf\actors\actors_mm_u0.json" />
+    <None Include="conf\actors\actors_oot.json" />
+    <None Include="conf\scene\scene_beneath_the_graveyard.json" />
+    <None Include="conf\scene\scene_deku_palace_jp.json" />
+    <None Include="conf\scene\scene_deku_palace_us.json" />
+    <None Include="conf\scene\scene_graveyard_night1.json" />
+    <None Include="conf\scene\scene_graveyard_night1_old.json" />
+    <None Include="conf\scene\scene_observatory_jp.json" />
+    <None Include="conf\scene\scene_observatory_us.json" />
+    <None Include="conf\scene\scene_observatory_us_old0.json" />
+    <None Include="conf\scene\scene_observatory_us_old1.json" />
+    <None Include="conf\scene\scene_swamp_us.json" />
+    <None Include="conf\scene\scene_woods_of_mystery_day1.json" />
+    <None Include="conf\scene\scene_woods_of_mystery_day1_partial.json" />
+    <None Include="conf\settings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Constants.h" />
+    <ClInclude Include="include\Heap.h" />
+    <ClInclude Include="include\json.hpp" />
+    <ClInclude Include="include\Node.h" />
+    <ClInclude Include="include\Room.h" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\Settings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Heap.cpp" />
+    <ClCompile Include="src\Node.cpp" />
+    <ClCompile Include="src\Project Oceanside.cpp" />
+    <ClCompile Include="src\Room.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{82E77429-3A2E-4AA6-B0C4-13F2FAC7F811}</ProjectGuid>
@@ -90,6 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,6 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +159,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,6 +178,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,46 +187,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Heap.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Project Oceanside.cpp" />
-    <ClCompile Include="Room.cpp" />
-    <ClCompile Include="Scene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Heap.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Room.h" />
-    <ClInclude Include="Scene.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="mm_j_actors.json">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="mm_u_actors.json">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="oot_actors.json">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="scene.json">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="mm_j1_actors.json" />
-    <None Include="scene_2.json" />
-    <None Include="scene_3.json" />
-    <None Include="scene_4.json" />
-    <None Include="scene_5.json" />
-    <None Include="scene_6.json" />
-    <None Include="scene_69.json" />
-    <None Include="swamp.json" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
