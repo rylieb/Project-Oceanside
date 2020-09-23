@@ -27,6 +27,7 @@
     <None Include="conf\scene\scene_beneath_the_graveyard.json" />
     <None Include="conf\scene\scene_deku_palace_jp.json" />
     <None Include="conf\scene\scene_deku_palace_us.json" />
+    <None Include="conf\scene\scene_graveyard_day1.json" />
     <None Include="conf\scene\scene_graveyard_night1.json" />
     <None Include="conf\scene\scene_graveyard_night1_old.json" />
     <None Include="conf\scene\scene_observatory_jp.json" />

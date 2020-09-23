@@ -2873,6 +2873,226 @@ void Heap::SolveGraveyard()
 	}
 }
 
+void Heap::SolveGraveyardGrotto()
+{
+	unsigned int seed = (unsigned int)time(NULL);
+	srand(seed);
+
+	uint64_t totalPermutations = 0;
+	unsigned int totalSolutions = 0;
+
+	std::vector<std::pair<int, int>> solution;
+
+	std::cout << "Seed: " << seed << std::endl;
+	std::cout << "Solving..." << std::endl;
+	//imbued "C:\\Users\\doldop\\Documents\\Bizhawk RAM Watch\\kylf\\Heap_Manip_Outputs\\";
+	//me "C:\\Users\\Kyle\\Desktop\\Heap_Manip_Outputs\\";
+	//geek "F:\kyle\"
+	auto newContainerFolder = "C:\\Users\\rylie\\Documents\\docs\\Heap_Manip_Outputs\\";
+	auto newSubFolder = newContainerFolder + std::to_string(seed) + "\\";
+	_mkdir(newContainerFolder);
+	_mkdir(newSubFolder.c_str());
+
+	while (true)
+	{
+		int roomLoads = (2 * (rand() % LOAD_MODIFIER));
+
+		LoadInitialRoom(0);
+		solution.push_back(std::make_pair(LOAD_INITIAL_ROOM, 0));
+
+		for (int i = 0; i < roomLoads; i++)
+		{
+			int deallocations = 0;
+			size_t currentRoomDeallocations = currentRoom->GetDeallocatableActors().size();
+			if (currentRoomDeallocations)
+			{
+				deallocations = rand() % currentRoomDeallocations;
+			}
+			else
+			{
+				deallocations = 0;
+			}
+
+			for (int j = 0; j < deallocations; j++)
+			{
+				auto dealloc = DeallocateRandomActor();
+				solution.push_back(dealloc);
+
+			}
+
+			if (smoke)
+			{
+				char smokeRNG = rand() % 2;
+				if (smokeRNG)
+				{
+					AllocateTemporaryActor(0xA2);
+					solution.push_back(std::make_pair(ALLOCATE, 0xA2));
+				}
+			}
+
+			int allocations = 0;
+			if (MAX_ALLOCATIONS_PER_STEP == 0)
+			{
+				allocations = 0;
+			}
+			else
+			{
+				allocations = rand() % MAX_ALLOCATIONS_PER_STEP;
+			}
+
+			for (int j = 0; j < allocations; j++)
+			{
+				auto allocate = AllocateRandomActor();
+				solution.push_back(std::make_pair(ALLOCATE, allocate));
+			}
+
+			if (endAllocationStep)
+			{
+				char rng = rand() % 2;
+
+				switch (rng)
+				{
+				case 0:
+					break;
+				case 1:
+					AllocateTemporaryActor(0x35);
+					solution.push_back(std::make_pair(ALLOCATE, 0x35));
+					break;
+				default:
+					break;
+				}
+			}
+
+			int nextRoom = 0;
+			int nextPlane = 0;
+
+			if (currentRoomNumber == 0)
+			{
+				nextRoom = 1;
+				nextPlane = 0;
+			}
+			else if (currentRoomNumber == 1)
+			{
+				nextRoom = 0;
+				nextPlane = 0;
+			}
+
+			//actually perform room change using chosen room and plane
+			ChangeRoom(nextRoom, nextPlane, false);
+			solution.push_back(std::make_pair(CHANGE_ROOM, nextRoom));
+			solution.push_back(std::make_pair(SPAWNERS, false));
+			solution.push_back(std::make_pair(USE_PLANE, nextPlane));
+		}
+
+		//we're now standing in room 0. need to get back to room 1 to superslide.
+		ChangeRoom(1, 0, false);
+		solution.push_back(std::make_pair(CHANGE_ROOM, 1));
+
+		std::vector<std::pair<int, int>> grass = GetAddressesAndPrioritiesOfType(0x90, 'A');
+		std::vector<std::pair<int, int>> rocks = GetAddressesAndPrioritiesOfType(0xB0, 'A');
+
+
+		AllocateTemporaryActor(0xA2);
+		ChangeRoom(0, 0, false);
+		solution.push_back(std::make_pair(SUPERSLIDE, 0));
+
+		//standing in grave room now, but we need to change to grotto room to have a chance of things lining up
+		ChangeRoom(1, 0, false);
+		solution.push_back(std::make_pair(CHANGE_ROOM, 1));
+
+		//just putting in this to make POS make_pair happy.
+		std::vector<std::pair<int, int>> grottos = GetAddressesAndPrioritiesOfType(0x55, 'A');
+
+		int grottoOverlayAddress = GetOverlayAddress(0x55);
+
+		bool solutionFound = false;
+		std::pair<std::pair<int, int>, std::pair<int, int>> solutionPair;
+
+		for (auto grasss : grass)
+		{
+			if (grasss.first - grottoOverlayAddress == 0x5D0)
+			{
+				solutionFound = true;
+				solutionPair = std::make_pair(grasss, grottos[0]);
+			}
+		}
+
+		for (auto rock : rocks)
+		{
+			if (rock.first - grottoOverlayAddress == 0x5D0 && !solutionFound)
+			{
+				solutionFound = true;
+				solutionPair = std::make_pair(rock, grottos[0]);
+			}
+		}
+
+
+		if (solutionFound)
+		{
+			std::cout << "SOLUTION FOUND\n";
+			totalSolutions++;
+
+			std::ofstream outputFile;
+			std::string outputFilename = newSubFolder + "\\solution" + std::to_string(totalSolutions) + "_seed_" + std::to_string(seed) + ".txt";
+			outputFile.open(outputFilename);
+
+			outputFile << std::hex << "Pot Address | Priority: " << solutionPair.first.first << " | " << solutionPair.first.second <<
+				" Grotto Overlay Address | Priority: " << grottoOverlayAddress  << std::endl;
+
+			for (auto step : solution)
+			{
+				if (step.first == LOAD_INITIAL_ROOM)
+				{
+					outputFile << std::hex << "Load initial room: " << step.second << std::endl;
+				}
+				else if (step.first == CHANGE_ROOM)
+				{
+					outputFile << std::hex << "Load room: " << step.second;
+				}
+				else if (step.first == SPAWNERS)
+				{
+					outputFile << " | Spawners: " << step.second;
+				}
+				else if (step.first == USE_PLANE)
+				{
+					outputFile << " | Use plane: " << step.second << std::endl;
+				}
+				else if (step.first == ALLOCATE)
+				{
+					if (step.second != 0x0)
+					{
+						outputFile << std::hex << "Allocate: " << step.second << std::endl;
+					}
+				}
+				else if (step.first == SUPERSLIDE)
+				{
+					outputFile << std::hex << std::endl << "Superslide into room " << step.second << " with smoke still loaded using plane 0." << std::endl;
+				}
+				else if (step.first == 0)
+				{
+					;
+				}
+				else
+				{
+					outputFile << std::hex << "Dealloc: " << std::setw(2) << step.first << ", " << step.second << std::endl;
+				}
+
+			}
+			outputFile.close();
+		}
+
+		ResetHeap();
+		solution.clear();
+		totalPermutations++;
+
+		if (totalPermutations % 100000 == 0)
+		{
+			std::cout << std::dec << "Total permutations: " << totalPermutations << " | Total Solutions: " << totalSolutions << std::endl;
+		}
+
+	}
+}
+
 void Heap::SolveGrave()
 {
 	unsigned int seed = (unsigned int) time(NULL);

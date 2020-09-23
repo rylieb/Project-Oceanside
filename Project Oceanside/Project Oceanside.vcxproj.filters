@@ -33,6 +33,7 @@
     <None Include="conf\scene\scene_swamp_us.json" />
     <None Include="conf\scene\scene_woods_of_mystery_day1.json" />
     <None Include="conf\scene\scene_woods_of_mystery_day1_partial.json" />
+    <None Include="conf\scene\scene_graveyard_day1.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Constants.h">
